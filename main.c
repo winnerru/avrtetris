@@ -37,12 +37,12 @@ ISR(TIMER0_OVF_vect) {
 }
 
 int main() {
-    uint8_t isButtonReleased = 1;
-    uint8_t delayTimer = 0;
-    
+	uint8_t isButtonReleased = 1;
+	uint8_t delayTimer = 0;
+
 	initDevice();
 
-    figure = next(&figureX, &figureY, &figureColor);
+	figure = next(&figureX, &figureY, &figureColor);
 
 	for (;;) {
 		_delay_ms(1);
@@ -64,7 +64,7 @@ int main() {
 		switch (getButtonStatus()) {
 			case UP:
 				if (isButtonReleased) {
-		    		gameOver(screen);
+					gameOver(screen);
 				}
 				break;
 			case LEFT:

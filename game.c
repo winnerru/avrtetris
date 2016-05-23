@@ -19,56 +19,56 @@ const block pieces[7] = {
 };
 
 void eraseFigure(uint8_t figureX, uint8_t figureY) {
-    for (uint8_t y = 0; y < figure.size; y++) {
-   		for (uint8_t x = 0; x < figure.size; x++) {
-   			int8_t offs = (y + figureY) * SCREEN_WIDTH + x + figureX;
-    		if (offs >= 0) {
-    			screen[offs] &= ((figure.mask[y * figure.size + x] & 1) ^ 1) * 0xff;
-    		}
-   		}
-   	}
+	for (uint8_t y = 0; y < figure.size; y++) {
+		for (uint8_t x = 0; x < figure.size; x++) {
+			int8_t offs = (y + figureY) * SCREEN_WIDTH + x + figureX;
+			if (offs >= 0) {
+				screen[offs] &= ((figure.mask[y * figure.size + x] & 1) ^ 1) * 0xff;
+			}
+		}
+	}
 }
 
 void placeFigure(block* figure, uint8_t figureX, uint8_t figureY, uint8_t figureColor) {
-    for (uint8_t y = 0; y < figure->size; y++) {
-   		for (uint8_t x = 0; x < figure->size; x++) {
-   			int8_t offs = (y + figureY) * SCREEN_WIDTH + x + figureX;
-    		if (offs >= 0) {
-    			screen[offs] |= (figure->mask[y * figure->size + x] & 1) * figureColor;
-    		}
-   		}
-   	}
+	for (uint8_t y = 0; y < figure->size; y++) {
+		for (uint8_t x = 0; x < figure->size; x++) {
+			int8_t offs = (y + figureY) * SCREEN_WIDTH + x + figureX;
+			if (offs >= 0) {
+				screen[offs] |= (figure->mask[y * figure->size + x] & 1) * figureColor;
+			}
+		}
+	}
 }
 
 uint8_t check(block* figure, int8_t figureX, int8_t figureY) {
-    for (int8_t y = 0; y < figure->size; y++) {
-   		for (int8_t x = 0; x < figure->size; x++) {
-   			int16_t offs = (y + figureY) * SCREEN_WIDTH + x + figureX;
+	for (int8_t y = 0; y < figure->size; y++) {
+		for (int8_t x = 0; x < figure->size; x++) {
+			int16_t offs = (y + figureY) * SCREEN_WIDTH + x + figureX;
    			// Непустая ячейка в фигуре
-   			if (figure->mask[y * figure->size + x] & 1) {
+			if (figure->mask[y * figure->size + x] & 1) {
    				// пересечение с заполненной ячейкой стакана
-	    		if ((offs >= 0) && (offs < SCREEN_WIDTH * SCREEN_HEIGHT) && (screen[offs] > 0)) {
-	    			return 0;
-    			}
+				if ((offs >= 0) && (offs < SCREEN_WIDTH * SCREEN_HEIGHT) && (screen[offs] > 0)) {
+					return 0;
+				}
     			// выходит за границу по горизонтали
-    			if ((x + figureX < 0) || (x + figureX >= GLASS_WIDTH)) {
-    				return 0;
-    			}
+				if ((x + figureX < 0) || (x + figureX >= GLASS_WIDTH)) {
+					return 0;
+				}
     			// выходит за нижнюю границу
-    			if (y + figureY >= GLASS_HEIGHT) {
-    				return 0;
-    			}
-    		}
-   		}
-   	}
+				if (y + figureY >= GLASS_HEIGHT) {
+					return 0;
+				}
+			}
+		}
+	}
 	return 1;
 }
 
 block next(int8_t* figureX, int8_t* figureY, uint8_t* c) {
 	uint8_t i = rand() % 7;
-    *figureX = GLASS_WIDTH / 2 - pieces[i].size / 2;
-    *figureY = -pieces[i].size;
-    *c = (rand() % 2) + 2;
+	*figureX = GLASS_WIDTH / 2 - pieces[i].size / 2;
+	*figureY = -pieces[i].size;
+	*c = (rand() % 2) + 2;
 	return pieces[i];
 }
 
@@ -122,7 +122,7 @@ uint8_t doDown() {
 
 void doFall() {
 	while (doDown());
-    placeFigure(&figure, figureX, figureY, figureColor);
+	placeFigure(&figure, figureX, figureY, figureColor);
 	figure = next(&figureX, &figureY, &figureColor);
 }
 

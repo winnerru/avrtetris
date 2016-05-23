@@ -29,7 +29,7 @@ inline void rowOn (uint8_t row) {
 }
 
 inline void rowOff () {
-		PORTD = 0xff;
+	PORTD = 0xff;
 }
 
 void displayScreen () {
