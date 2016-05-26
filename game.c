@@ -133,7 +133,7 @@ void gameOver(uint8_t* fb) {
 			if (fb[y * SCREEN_WIDTH + x]) {
 				fb[y * SCREEN_WIDTH + x] = 1;
 			}
-			_delay_ms(10);
+			_delay_ms(2);
 		}
 	}
 
@@ -160,11 +160,11 @@ void checkLine(uint8_t* fb) {
 					for (x = 0; x < SCREEN_WIDTH; x++) {
 						fb[y * SCREEN_WIDTH + x] = 0;
 					}
-					_delay_ms(25);
+					_delay_ms(7);
 					for (x = 0; x < SCREEN_WIDTH; x++) {
 						fb[y * SCREEN_WIDTH + x] = 1;
 					}
-					_delay_ms(25);
+					_delay_ms(7);
 				}
 				// сдвиг всех строк на одну вниз
 				for (j = y - 1; j >= 0; j--) {

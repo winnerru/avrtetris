@@ -14,20 +14,20 @@
 
 void initDevice() {
 	DDRB = 0b11000011;
-	DDRC = 0b00011111;
+	DDRC = 0b00000000;
 	DDRD = 0b11111111;
 
 	PORTB = 0b00000000;
 	PORTC = 0b00011111;
 	PORTD = 0b11111111;
 
-    // Настройка таймеров
-    TCCR0 = (0<<CS02)|(1<<CS01)|(1<<CS00); // Задаём делитель таймера 0
+	// Настройка таймеров
+	TCCR0 = (0<<CS02)|(1<<CS01)|(1<<CS00); // Задаём делитель таймера 0
 
-    // настройка обработчиков прерываний
-    TIMSK |= (1<<TOIE0);                   // Разрешаем прерывания по переполнению таймера 0
+	// настройка обработчиков прерываний
+	TIMSK |= (1<<TOIE0);                   // Разрешаем прерывания по переполнению таймера 0
 
-    sei();                                 // Разрешаем прерывания
+	sei();                                 // Разрешаем прерывания
 }
 
 // Обработчик прерывания по переполнению таймера 0
@@ -38,7 +38,7 @@ ISR(TIMER0_OVF_vect) {
 
 int main() {
 	uint8_t isButtonReleased = 1;
-	uint8_t delayTimer = 0;
+	uint16_t delayTimer = 0;
 
 	initDevice();
 
@@ -46,7 +46,7 @@ int main() {
 
 	for (;;) {
 		_delay_ms(1);
-		if (++delayTimer > 65) {
+		if (++delayTimer > 35) {
 			delayTimer = 0;
 			if (!doDown()) {
 				placeFigure(&figure, figureX, figureY, figureColor);
