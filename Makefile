@@ -5,18 +5,20 @@ TARG = firmware
 
 CC = avr-gcc
 OBJCOPY = avr-objcopy
+AVRSIZE = avr-size
 
 SRCS = routines.c display.c game.c main.c
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -mmcu=$(MCU) -Wall -Os -Werror -lm  -mcall-prologues -std=c99
-LDFLAGS = -mmcu=$(MCU)  -Wall -Os  -Werror 
+CFLAGS = -mmcu=$(MCU) -Wall -Os -Werror -lm -mcall-prologues -std=c99
+LDFLAGS = -mmcu=$(MCU) -Wall -Os -Werror
 
 all: $(TARG)
 
 $(TARG): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@.elf  $(OBJS) -lm
+	$(AVRSIZE) -C --mcu=$(MCU) $@.elf
 	$(OBJCOPY) -O binary -R .eeprom -R .nwram  $@.elf $@.bin
 	$(OBJCOPY) -O ihex -R .eeprom -R .nwram  $@.elf $@.hex
 

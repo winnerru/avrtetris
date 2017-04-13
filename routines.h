@@ -6,4 +6,4 @@
 
 typedef enum { UP, LEFT, CENTER, RIGHT, DOWN, NONE } buttonStatus;
 
-buttonStatus getButtonStatus ();
+buttonStatus getButtonStatus();

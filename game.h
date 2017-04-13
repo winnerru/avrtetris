@@ -4,14 +4,10 @@
 #define GLASS_HEIGHT 16
 
 typedef struct {
-	char* mask;
-	uint8_t size;
-	uint8_t upLine;
+    char* mask;
+    uint8_t size;
+    uint8_t upLine;
 } block;
-
-block   figure;
-uint8_t figureColor;
-int8_t  figureX, figureY;
 
 uint8_t check(block* figure, int8_t figureX, int8_t figureY);
 void placeFigure(block* figure, uint8_t figureX, uint8_t figureY, uint8_t figureColor);
