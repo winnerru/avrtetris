@@ -1,5 +1,6 @@
-#include <avr/io.h>
 #include "config.h"
+#include <avr/io.h>
+#include <avr/pgmspace.h>
 #include "display.h"
 
 /*
@@ -11,7 +12,7 @@ PB6 - data red
 PB7 - data green
 */
 
-const uint8_t rowsMap[8] = {3, 2, 5, 4, 1, 0, 6, 7};
+const uint8_t rowsMap[8] PROGMEM = {3, 2, 5, 4, 1, 0, 6, 7};
 
 inline void sendBitsRG(uint8_t data) {
     PORTB = (data & 3) << 6;
@@ -46,5 +47,5 @@ void displayLine(uint8_t* screen, uint8_t y) {
     }
     rowOff();
     latch();
-    rowOn(rowsMap[y]);
+    rowOn(pgm_read_byte(&(rowsMap[y])));
 }

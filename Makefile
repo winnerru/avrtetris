@@ -11,8 +11,8 @@ SRCS = routines.c display.c game.c main.c
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -mmcu=$(MCU) -Wall -Os -Werror -lm -mcall-prologues -std=c99
-LDFLAGS = -mmcu=$(MCU) -Wall -Os -Werror
+CFLAGS = -mmcu=$(MCU) -g -Wall -O3 -Werror -lm -mcall-prologues -std=c99
+LDFLAGS = -mmcu=$(MCU) -g -Wall -O3 -Werror
 
 all: $(TARG)
 
